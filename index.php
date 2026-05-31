@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShoPafupi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+/* ═══════════════════════════════════════════════════
+   ROOT & RESET
+═══════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --orange:      #FF6A00;
+  --orange-dark: #e05c00;
+  --orange-pale: #fff4ec;
+  --orange-mid:  #ff8f3f;
+  --white:       #ffffff;
+  --gray-50:     #fafafa;
+  --gray-100:    #f5f5f5;
+  --gray-200:    #e8e8e8;
+  --gray-300:    #d0d0d0;
+  --gray-400:    #aaaaaa;
+  --gray-600:    #666666;
+  --gray-800:    #333333;
+  --gray-900:    #111111;
+  --blue:        #0066cc;
+  --green:       #1e8a2e;
+  --gold:        #d4a520;
+  --shadow-sm:   0 1px 4px rgba(0,0,0,0.08);
+  --shadow-md:   0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg:   0 8px 32px rgba(0,0,0,0.14);
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --font-body:   'DM Sans', sans-serif;
+  --font-serif:  'DM Serif Display', serif;
+  --transition:  0.22s cubic-bezier(.4,0,.2,1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--gray-100);
+  color: var(--gray-800);
+  line-height: 1.55;
+  font-size: 14px;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; }
+a  { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+button { cursor: pointer; font-family: inherit; border: none; outline: none; }
+
+/* ═══════════════════════════════════════════════════
+   UTILITY
+═══════════════════════════════════════════════════ */
+.container { max-width: 1320px; margin: 0 auto; padding: 0 20px; }
+.badge { display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.badge-gold  { background: #fff8e1; color: var(--gold); border: 1px solid #ffe082; }
+.badge-green { background: #e8f5e9; color: var(--green); border: 1px solid #a5d6a7; }
+.badge-blue  { background: #e3f2fd; color: var(--blue); border: 1px solid #90caf9; }
+.badge-orange{ background: var(--orange-pale); color: var(--orange); border: 1px solid #ffc899; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 9px 20px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 600;
+  transition: all var(--transition); white-space: nowrap; cursor: pointer;
+}
+.btn-primary   { background: var(--orange); color: #fff; border: 1.5px solid var(--orange); }
+.btn-primary:hover { background: var(--orange-dark); border-color: var(--orange-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(255,106,0,.35); }
+.btn-outline   { background: transparent; color: var(--orange); border: 1.5px solid var(--orange); }
+.btn-outline:hover { background: var(--orange-pale); }
+.btn-ghost     { background: transparent; color: var(--gray-800); border: 1.5px solid var(--gray-300); }
+.btn-ghost:hover { border-color: var(--orange); color: var(--orange); background: var(--orange-pale); }
+.btn-white     { background: #fff; color: var(--orange); border: 1.5px solid #fff; }
+.btn-white:hover { background: var(--orange-pale); border-color: var(--orange-pale); }
+.btn-sm  { padding: 6px 14px; font-size: 12px; }
+.btn-lg  { padding: 13px 32px; font-size: 15px; border-radius: var(--radius-md); }
+
+.section-title {
+  font-size: 22px; font-weight: 700; color: var(--gray-900);
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title::before {
+  content: ''; display: block;
+  width: 4px; height: 22px; background: var(--orange); border-radius: 2px;
+}
+.section-header {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;
+}
+.view-all {
+  font-size: 13px; color: var(--orange); font-weight: 600;
+  display: flex; align-items: center; gap: 4px;
+  transition: gap var(--transition);
+}
+.view-all:hover { gap: 8px; }
+
+section { background: var(--white); border-radius: var(--radius-lg); margin: 0 0 16px; overflow: hidden; }
+
+/* ═══════════════════════════════════════════════════
+   TOP UTILITY BAR
+═══════════════════════════════════════════════════ */
+.top-util-bar {
+  background: var(--gray-900);
+  padding: 5px 0;
+  font-size: 12px;
+  color: var(--gray-400);
+}
+.top-util-bar .container {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.util-left { display: flex; gap: 16px; }
+.util-left a { color: var(--gray-400); transition: color var(--transition); }
+.util-left a:hover { color: #fff; }
+.util-right { display: flex; gap: 12px; align-items: center; }
+.util-right select {
+  background: transparent; border: none; color: var(--gray-400);
+  font-size: 12px; font-family: var(--font-body); cursor: pointer; outline: none;
+  appearance: none; padding-right: 12px;
+}
+
+/* ═══════════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════════ */
+.site-header {
+  background: #fff;
+  position: sticky; top: 0; z-index: 1000;
+  box-shadow: 0 2px 12px rgba(0,0,0,.08);
+}
+.header-main {
+  display: flex; align-items: center; gap: 20px;
+  padding: 14px 0;
+}
+.logo {
+  flex-shrink: 0;
+  display: flex; flex-direction: column; gap: 0;
+  cursor: pointer; user-select: none;
+}
+.logo-text {
+  font-family: var(--font-body); font-size: 26px; font-weight: 800;
+  color: var(--orange); letter-spacing: -0.5px; line-height: 1;
+}
+.logo-sub { font-size: 10px; color: var(--gray-400); letter-spacing: 1.5px; text-transform: uppercase; }
+
+.search-bar {
+  flex: 1;
+  display: flex; align-items: stretch;
+  border: 2px solid var(--orange);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: box-shadow var(--transition);
+}
+.search-bar:focus-within { box-shadow: 0 0 0 3px rgba(255,106,0,.18); }
+
+.search-cat {
+  padding: 0 14px;
+  background: var(--gray-100);
+  border-right: 1px solid var(--gray-200);
+  font-size: 13px; color: var(--gray-600);
+  display: flex; align-items: center; gap: 6px;
+  cursor: pointer; white-space: nowrap;
+  appearance: none; font-family: var(--font-body);
+  outline: none; border: none;
+}
+.search-input {
+  flex: 1; padding: 0 16px;
+  border: none; outline: none;
+  font-size: 14px; font-family: var(--font-body); color: var(--gray-800);
+  background: transparent;
+}
+.search-input::placeholder { color: var(--gray-400); }
+.search-btn {
+  background: var(--orange); color: #fff; border: none;
+  padding: 0 22px; font-size: 18px;
+  transition: background var(--transition);
+  display: flex; align-items: center;
+}
+.search-btn:hover { background: var(--orange-dark); }
+
+.header-actions {
+  display: flex; align-items: center; gap: 4px; flex-shrink: 0;
+}
+.hdr-btn {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 2px; padding: 6px 10px; border-radius: var(--radius-sm);
+  color: var(--gray-700); font-size: 11px; font-weight: 500;
+  background: transparent; border: none; cursor: pointer;
+  transition: all var(--transition); white-space: nowrap;
+  position: relative;
+}
+.hdr-btn i { font-size: 20px; }
+.hdr-btn:hover { color: var(--orange); background: var(--orange-pale); }
+.hdr-btn-badge {
+  position: absolute; top: 4px; right: 6px;
+  background: var(--orange); color: #fff;
+  font-size: 9px; font-weight: 700;
+  min-width: 16px; height: 16px;
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  padding: 0 3px;
+}
+.hdr-signup {
+  background: var(--orange); color: #fff;
+  padding: 8px 18px; border-radius: var(--radius-sm);
+  font-size: 13px; font-weight: 700; border: none;
+  cursor: pointer; transition: all var(--transition); white-space: nowrap;
+}
+.hdr-signup:hover { background: var(--orange-dark); transform: translateY(-1px); }
+
+/* Main Nav */
+.main-nav {
+  border-top: 1px solid var(--gray-100);
+  background: var(--white);
+}
+.main-nav .container {
+  display: flex; align-items: center; gap: 0;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 5px;
+  padding: 10px 16px; font-size: 13px; font-weight: 500;
+  color: var(--gray-700); cursor: pointer;
+  border-bottom: 2.5px solid transparent;
+  transition: all var(--transition); white-space: nowrap;
+}
+.nav-item:hover, .nav-item.active { color: var(--orange); border-bottom-color: var(--orange); }
+.nav-item i { font-size: 15px; }
+.nav-categories-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 10px 18px; font-size: 13px; font-weight: 600;
+  background: var(--orange); color: #fff; cursor: pointer;
+  border: none; transition: background var(--transition);
+}
+.nav-categories-btn:hover { background: var(--orange-dark); }
+.nav-spacer { flex: 1; }
+.nav-deal {
+  color: #e53935 !important; font-weight: 700 !important;
+  display: flex !important; align-items: center; gap: 4px;
+}
+.nav-deal::after { content: '🔥'; font-size: 13px; }
+
+/* ═══════════════════════════════════════════════════
+   HERO CAROUSEL
+═══════════════════════════════════════════════════ */
+.hero { border-radius: 0; margin: 0; background: var(--gray-100); }
+.hero-inner {
+  display: grid; grid-template-columns: 200px 1fr 200px;
+  gap: 12px; padding: 16px 0;
+}
+.hero-side-cats {
+  background: var(--white); border-radius: var(--radius-md);
+  overflow: hidden; box-shadow: var(--shadow-sm);
+}
+.side-cat-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 14px; font-size: 12.5px; color: var(--gray-700);
+  cursor: pointer; border-bottom: 1px solid var(--gray-100);
+  transition: all var(--transition);
+}
+.side-cat-item:last-child { border-bottom: none; }
+.side-cat-item:hover { background: var(--orange-pale); color: var(--orange); padding-left: 18px; }
+.side-cat-item i { font-size: 16px; color: var(--gray-400); transition: color var(--transition); }
+.side-cat-item:hover i { color: var(--orange); }
+
+.carousel-wrap { position: relative; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-md); }
+.carousel-track { display: flex; transition: transform 0.55s cubic-bezier(.4,0,.2,1); will-change: transform; }
+.carousel-slide {
+  min-width: 100%; height: 360px;
+  position: relative; display: flex; align-items: center;
+  padding: 48px 56px;
+  background-size: cover; background-position: center;
+  overflow: hidden;
+}
+.slide-1 { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); }
+.slide-2 { background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 50%, #40916c 100%); }
+.slide-3 { background: linear-gradient(135deg, #3d0000 0%, #6b0000 50%, #a30000 100%); }
+.slide-4 { background: linear-gradient(135deg, #2c1654 0%, #4a2080 50%, #7b3fa0 100%); }
+.slide-5 { background: linear-gradient(135deg, #0d2137 0%, #1a4a70 50%, #2980b9 100%); }
+
+.slide-bg-shapes { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.slide-shape {
+  position: absolute; border-radius: 50%; opacity: 0.12;
+}
+.slide-content { position: relative; z-index: 2; max-width: 55%; }
+.slide-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: rgba(255,255,255,.6);
+  margin-bottom: 10px;
+}
+.slide-title {
+  font-family: var(--font-serif); font-size: 38px;
+  color: #fff; line-height: 1.15; margin-bottom: 12px;
+}
+.slide-desc { color: rgba(255,255,255,.75); font-size: 14px; margin-bottom: 24px; max-width: 380px; }
+.slide-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.slide-visual {
+  position: absolute; right: 48px; top: 50%; transform: translateY(-50%);
+  width: 240px; height: 240px; border-radius: var(--radius-xl);
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,.08); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.15);
+}
+.slide-visual i { font-size: 96px; color: rgba(255,255,255,.35); }
+
+.carousel-btn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,255,255,.92); color: var(--gray-800);
+  border: none; cursor: pointer; z-index: 10;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; box-shadow: var(--shadow-md);
+  transition: all var(--transition);
+}
+.carousel-btn:hover { background: var(--orange); color: #fff; transform: translateY(-50%) scale(1.08); }
+.carousel-btn.prev { left: 14px; }
+.carousel-btn.next { right: 14px; }
+
+.carousel-dots {
+  position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 7px; z-index: 10;
+}
+.carousel-dot {
+  width: 8px; height: 8px; border-radius: 4px;
+  background: rgba(255,255,255,.45); border: none; cursor: pointer;
+  transition: all var(--transition);
+}
+.carousel-dot.active { background: #fff; width: 24px; }
+
+/* Hero right panel */
+.hero-right { display: flex; flex-direction: column; gap: 12px; }
+.hero-mini-card {
+  background: var(--white); border-radius: var(--radius-md);
+  padding: 14px; display: flex; align-items: center; gap: 12px;
+  box-shadow: var(--shadow-sm); cursor: pointer;
+  transition: all var(--transition); flex: 1;
+}
+.hero-mini-card:hover { box-shadow: var(--shadow-md); transform: translateX(-3px); }
+.hero-mini-icon {
+  width: 48px; height: 48px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.hero-mini-icon i { font-size: 22px; }
+.hero-mini-title { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.hero-mini-desc { font-size: 11px; color: var(--gray-400); }
+.promo-strip {
+  background: linear-gradient(135deg, var(--orange), #ff9500);
+  border-radius: var(--radius-md); padding: 14px;
+  color: #fff; text-align: center; cursor: pointer;
+  transition: opacity var(--transition);
+}
+.promo-strip:hover { opacity: 0.9; }
+.promo-strip-title { font-size: 14px; font-weight: 700; }
+.promo-strip-sub { font-size: 11px; opacity: 0.85; margin-top: 2px; }
+
+/* ═══════════════════════════════════════════════════
+   CATEGORIES SECTION
+═══════════════════════════════════════════════════ */
+.categories-section { padding: 28px 0; border-radius: 0; margin: 0 0 16px; }
+.cat-grid {
+  display: grid; grid-template-columns: repeat(10, 1fr); gap: 12px;
+}
+.cat-card {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding: 18px 10px; border-radius: var(--radius-md);
+  background: var(--white); border: 1.5px solid var(--gray-100);
+  cursor: pointer; transition: all var(--transition); text-align: center;
+}
+.cat-card:hover {
+  border-color: var(--orange);
+  box-shadow: 0 6px 20px rgba(255,106,0,.15);
+  transform: translateY(-4px);
+}
+.cat-icon {
+  width: 56px; height: 56px; border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; transition: transform var(--transition);
+}
+.cat-card:hover .cat-icon { transform: scale(1.12) rotate(-3deg); }
+.cat-name { font-size: 11.5px; font-weight: 600; color: var(--gray-700); line-height: 1.3; }
+.cat-count { font-size: 10px; color: var(--gray-400); }
+
+/* ═══════════════════════════════════════════════════
+   FEATURED PRODUCTS
+═══════════════════════════════════════════════════ */
+.products-section { padding: 28px 0; border-radius: 0; margin: 0 0 16px; }
+.filter-bar {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 20px; flex-wrap: wrap;
+}
+.filter-btn {
+  padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 500;
+  background: var(--gray-100); color: var(--gray-600); border: 1px solid var(--gray-200);
+  cursor: pointer; transition: all var(--transition);
+}
+.filter-btn:hover, .filter-btn.active {
+  background: var(--orange-pale); color: var(--orange); border-color: var(--orange);
+}
+.filter-select {
+  padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 500;
+  background: var(--gray-100); color: var(--gray-600); border: 1px solid var(--gray-200);
+  cursor: pointer; appearance: none; font-family: var(--font-body); outline: none;
+  transition: all var(--transition);
+}
+.filter-select:hover { border-color: var(--orange); color: var(--orange); }
+.filter-spacer { flex: 1; }
+.sort-label { font-size: 12px; color: var(--gray-400); }
+
+.products-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px;
+}
+.product-card {
+  background: var(--white); border-radius: var(--radius-md);
+  border: 1px solid var(--gray-200); overflow: hidden;
+  transition: all var(--transition); cursor: pointer;
+  display: flex; flex-direction: column;
+}
+.product-card:hover {
+  box-shadow: var(--shadow-lg); border-color: var(--orange);
+  transform: translateY(-4px);
+}
+.product-img-wrap {
+  position: relative; aspect-ratio: 1; overflow: hidden;
+  background: var(--gray-100);
+}
+.product-img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.45s cubic-bezier(.4,0,.2,1);
+  background: var(--gray-100);
+  display: flex; align-items: center; justify-content: center; font-size: 64px;
+}
+.product-card:hover .product-img { transform: scale(1.08); }
+.product-img-placeholder {
+  width: 100%; height: 100%; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 8px;
+}
+.product-img-placeholder i { font-size: 52px; color: var(--gray-300); }
+.product-badges {
+  position: absolute; top: 8px; left: 8px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.product-favorite {
+  position: absolute; top: 8px; right: 8px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: rgba(255,255,255,.9); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: var(--gray-400);
+  transition: all var(--transition); opacity: 0;
+}
+.product-card:hover .product-favorite { opacity: 1; }
+.product-favorite:hover { color: #e53935; background: #fff; }
+.product-quick-view {
+  position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+  background: var(--gray-900); color: #fff; border: none;
+  padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 600;
+  cursor: pointer; opacity: 0; transition: opacity var(--transition); white-space: nowrap;
+  font-family: var(--font-body);
+}
+.product-card:hover .product-quick-view { opacity: 1; }
+
+.product-info { padding: 12px; flex: 1; display: flex; flex-direction: column; }
+.product-title {
+  font-size: 13px; font-weight: 500; color: var(--gray-800);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  line-height: 1.4; margin-bottom: 8px; flex: 1;
+}
+.product-price {
+  font-size: 16px; font-weight: 700; color: var(--orange);
+  margin-bottom: 4px;
+}
+.product-price-range { font-size: 12px; color: var(--gray-400); font-weight: 400; }
+.product-moq {
+  font-size: 11px; color: var(--gray-400); margin-bottom: 8px;
+}
+.product-supplier {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 11px; color: var(--gray-500); margin-bottom: 10px;
+}
+.product-supplier i { font-size: 12px; }
+.product-actions { display: flex; gap: 6px; }
+.product-actions .btn { flex: 1; font-size: 11px; padding: 7px 8px; }
+
+/* ═══════════════════════════════════════════════════
+   BANNER STRIP
+═══════════════════════════════════════════════════ */
+.banner-strip { border-radius: 0; margin: 0 0 16px; background: transparent; }
+.banner-strip .container { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.banner-card {
+  border-radius: var(--radius-lg); padding: 24px 28px;
+  display: flex; flex-direction: column; gap: 10px;
+  min-height: 140px; cursor: pointer; transition: all var(--transition);
+  position: relative; overflow: hidden;
+}
+.banner-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.banner-card-title { font-size: 18px; font-weight: 700; color: #fff; }
+.banner-card-sub { font-size: 12px; color: rgba(255,255,255,.75); }
+.banner-card-icon {
+  position: absolute; right: 20px; bottom: 16px;
+  font-size: 56px; color: rgba(255,255,255,.2);
+}
+
+/* ═══════════════════════════════════════════════════
+   DEALS SECTION
+═══════════════════════════════════════════════════ */
+.deals-section { padding: 28px 0; border-radius: 0; margin: 0 0 16px; }
+.deals-header { background: linear-gradient(135deg, #e53935, #c62828); border-radius: var(--radius-md); padding: 16px 20px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; }
+.deals-title-wrap { display: flex; align-items: center; gap: 12px; }
+.deals-icon { font-size: 28px; }
+.deals-label { font-size: 20px; font-weight: 800; color: #fff; }
+.deals-sub { font-size: 12px; color: rgba(255,255,255,.75); }
+.countdown { display: flex; gap: 8px; align-items: center; }
+.countdown-unit {
+  background: rgba(0,0,0,.3); color: #fff;
+  padding: 6px 10px; border-radius: var(--radius-sm);
+  text-align: center;
+}
+.countdown-num { font-size: 20px; font-weight: 800; line-height: 1; }
+.countdown-lbl { font-size: 9px; opacity: 0.7; }
+.countdown-sep { color: #fff; font-size: 18px; font-weight: 800; margin-top: -4px; }
+.deals-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+.deal-card {
+  background: var(--white); border-radius: var(--radius-md);
+  border: 1px solid var(--gray-200); overflow: hidden;
+  transition: all var(--transition); cursor: pointer;
+}
+.deal-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.deal-img-wrap {
+  aspect-ratio: 1; background: var(--gray-100); position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.deal-img-wrap i { font-size: 52px; color: var(--gray-300); }
+.deal-discount {
+  position: absolute; top: 8px; left: 8px;
+  background: #e53935; color: #fff; font-size: 11px; font-weight: 800;
+  padding: 2px 7px; border-radius: 4px;
+}
+.deal-info { padding: 10px; }
+.deal-title { font-size: 12px; font-weight: 500; color: var(--gray-800); margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.deal-prices { display: flex; align-items: baseline; gap: 6px; }
+.deal-new-price { font-size: 15px; font-weight: 700; color: #e53935; }
+.deal-old-price { font-size: 11px; color: var(--gray-400); text-decoration: line-through; }
+.deal-bar-wrap { margin-top: 8px; }
+.deal-bar { height: 4px; background: var(--gray-200); border-radius: 2px; overflow: hidden; }
+.deal-bar-fill { height: 100%; background: linear-gradient(90deg, #e53935, #ff7043); border-radius: 2px; }
+.deal-sold { font-size: 10px; color: var(--gray-400); margin-top: 3px; }
+
+/* ═══════════════════════════════════════════════════
+   SUPPLIER HIGHLIGHTS
+═══════════════════════════════════════════════════ */
+.suppliers-section { padding: 28px 0; border-radius: 0; margin: 0 0 16px; }
+.suppliers-carousel-wrap { position: relative; }
+.suppliers-track { display: flex; gap: 14px; overflow: hidden; }
+.supplier-card {
+  flex: 0 0 calc((100% - 56px) / 5);
+  background: var(--white); border-radius: var(--radius-md);
+  border: 1px solid var(--gray-200); padding: 20px;
+  transition: all var(--transition); cursor: pointer;
+  display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center;
+}
+.supplier-card:hover { box-shadow: var(--shadow-md); border-color: var(--orange); transform: translateY(-3px); }
+.supplier-logo {
+  width: 64px; height: 64px; border-radius: var(--radius-md);
+  background: var(--gray-100); display: flex; align-items: center; justify-content: center;
+  font-size: 28px; color: var(--gray-400); border: 1px solid var(--gray-200);
+  font-weight: 700; color: var(--orange); font-size: 20px;
+  overflow: hidden;
+}
+.supplier-name { font-size: 13px; font-weight: 700; color: var(--gray-900); }
+.supplier-badges { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; }
+.supplier-location { font-size: 11px; color: var(--gray-400); display: flex; align-items: center; gap: 3px; }
+.supplier-stats { display: flex; gap: 12px; justify-content: center; }
+.supplier-stat { text-align: center; }
+.supplier-stat-val { font-size: 15px; font-weight: 700; color: var(--orange); }
+.supplier-stat-lbl { font-size: 10px; color: var(--gray-400); }
+.carousel-nav { display: flex; gap: 8px; justify-content: center; margin-top: 16px; }
+.carousel-nav-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--gray-100); color: var(--gray-600); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; transition: all var(--transition);
+}
+.carousel-nav-btn:hover { background: var(--orange); color: #fff; }
+
+/* ═══════════════════════════════════════════════════
+   TRUST STRIP
+═══════════════════════════════════════════════════ */
+.trust-strip { border-radius: 0; margin: 0 0 16px; padding: 0; background: var(--gray-900); }
+.trust-strip .container { display: flex; }
+.trust-item {
+  flex: 1; display: flex; align-items: center; gap: 14px;
+  padding: 20px 24px; border-right: 1px solid rgba(255,255,255,.08);
+  cursor: pointer; transition: background var(--transition);
+}
+.trust-item:last-child { border-right: none; }
+.trust-item:hover { background: rgba(255,255,255,.04); }
+.trust-icon { font-size: 32px; color: var(--orange); flex-shrink: 0; }
+.trust-title { font-size: 13px; font-weight: 700; color: #fff; }
+.trust-desc { font-size: 11px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+/* ═══════════════════════════════════════════════════
+   PRODUCT DETAIL OVERLAY
+═══════════════════════════════════════════════════ */
+.detail-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,.6); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px; opacity: 0; pointer-events: none;
+  transition: opacity var(--transition);
+}
+.detail-overlay.open { opacity: 1; pointer-events: all; }
+.detail-modal {
+  background: var(--white); border-radius: var(--radius-xl);
+  width: 100%; max-width: 1000px; max-height: 90vh;
+  overflow-y: auto; box-shadow: 0 24px 80px rgba(0,0,0,.3);
+  transform: scale(0.96) translateY(20px);
+  transition: transform var(--transition);
+}
+.detail-overlay.open .detail-modal { transform: scale(1) translateY(0); }
+.detail-modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 24px; border-bottom: 1px solid var(--gray-200); position: sticky; top: 0;
+  background: var(--white); z-index: 10; border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+.detail-close {
+  width: 36px; height: 36px; border-radius: 50%; background: var(--gray-100);
+  border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: var(--gray-600); transition: all var(--transition);
+}
+.detail-close:hover { background: #fee2e2; color: #e53935; }
+.detail-body { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; padding: 24px; }
+.detail-gallery { display: flex; flex-direction: column; gap: 10px; }
+.detail-main-img {
+  aspect-ratio: 1; background: var(--gray-100); border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 100px; color: var(--gray-300); overflow: hidden; cursor: zoom-in;
+}
+.detail-thumbs { display: flex; gap: 8px; }
+.detail-thumb {
+  width: 64px; height: 64px; border-radius: var(--radius-sm);
+  background: var(--gray-100); border: 2px solid transparent;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 24px; color: var(--gray-300); transition: border-color var(--transition);
+}
+.detail-thumb.active, .detail-thumb:hover { border-color: var(--orange); }
+.detail-info { display: flex; flex-direction: column; gap: 14px; }
+.detail-title { font-size: 20px; font-weight: 700; color: var(--gray-900); line-height: 1.3; }
+.detail-rating { display: flex; align-items: center; gap: 8px; }
+.stars { display: flex; gap: 2px; }
+.star { font-size: 14px; color: var(--gold); }
+.rating-count { font-size: 12px; color: var(--gray-400); }
+.detail-price-box {
+  background: var(--orange-pale); border-radius: var(--radius-md);
+  padding: 16px; display: flex; flex-direction: column; gap: 4px;
+}
+.detail-price { font-size: 28px; font-weight: 800; color: var(--orange); }
+.detail-price-note { font-size: 12px; color: var(--gray-500); }
+.detail-specs { border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; }
+.spec-row {
+  display: flex; font-size: 13px;
+  border-bottom: 1px solid var(--gray-100);
+}
+.spec-row:last-child { border-bottom: none; }
+.spec-key { width: 140px; flex-shrink: 0; padding: 8px 12px; background: var(--gray-50); color: var(--gray-500); font-weight: 500; }
+.spec-val { padding: 8px 12px; color: var(--gray-800); flex: 1; }
+.detail-supplier-box {
+  border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px;
+  display: flex; align-items: center; gap: 12px;
+}
+.detail-supplier-logo {
+  width: 48px; height: 48px; border-radius: var(--radius-sm);
+  background: var(--orange-pale); display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 800; color: var(--orange); flex-shrink: 0;
+}
+.detail-supplier-name { font-size: 14px; font-weight: 700; }
+.detail-ctas { display: flex; flex-direction: column; gap: 8px; }
+.detail-ctas .btn { width: 100%; justify-content: center; }
+
+/* ═══════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════ */
+.site-footer { background: var(--gray-900); border-radius: 0; margin: 0; }
+.footer-top { border-bottom: 1px solid rgba(255,255,255,.08); padding: 40px 0; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 32px; }
+.footer-brand { display: flex; flex-direction: column; gap: 14px; }
+.footer-logo { font-size: 28px; font-weight: 800; color: var(--orange); }
+.footer-tagline { font-size: 13px; color: rgba(255,255,255,.45); line-height: 1.6; max-width: 240px; }
+.footer-social { display: flex; gap: 8px; flex-wrap: wrap; }
+.social-btn {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: rgba(255,255,255,.08); color: rgba(255,255,255,.6);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; cursor: pointer; transition: all var(--transition); border: none;
+}
+.social-btn:hover { background: var(--orange); color: #fff; }
+.footer-col-title { font-size: 12px; font-weight: 700; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
+.footer-links { display: flex; flex-direction: column; gap: 9px; }
+.footer-links a { font-size: 13px; color: rgba(255,255,255,.55); transition: color var(--transition); }
+.footer-links a:hover { color: var(--orange); }
+.footer-bottom {
+  padding: 18px 0;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 12px; color: rgba(255,255,255,.35);
+}
+.footer-bottom-links { display: flex; gap: 16px; }
+.footer-bottom-links a { color: rgba(255,255,255,.35); transition: color var(--transition); }
+.footer-bottom-links a:hover { color: var(--orange); }
+.app-badges { display: flex; gap: 8px; margin-top: 12px; }
+.app-badge {
+  display: flex; align-items: center; gap: 7px;
+  background: rgba(255,255,255,.08); border-radius: 8px;
+  padding: 8px 12px; cursor: pointer; transition: background var(--transition);
+  border: 1px solid rgba(255,255,255,.12);
+}
+.app-badge:hover { background: rgba(255,255,255,.15); }
+.app-badge i { font-size: 20px; color: #fff; }
+.app-badge-text { display: flex; flex-direction: column; }
+.app-badge-pre { font-size: 9px; color: rgba(255,255,255,.5); }
+.app-badge-name { font-size: 13px; font-weight: 700; color: #fff; }
+
+/* ═══════════════════════════════════════════════════
+   SCROLL TO TOP
+═══════════════════════════════════════════════════ */
+.scroll-top {
+  position: fixed; bottom: 24px; right: 24px; z-index: 500;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--orange); color: #fff; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; font-size: 18px;
+  box-shadow: 0 4px 16px rgba(255,106,0,.4);
+  transition: all var(--transition); opacity: 0; pointer-events: none;
+}
+.scroll-top.visible { opacity: 1; pointer-events: all; }
+.scroll-top:hover { transform: translateY(-3px) scale(1.08); }
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════ */
+@media (max-width: 1200px) {
+  .cat-grid { grid-template-columns: repeat(5, 1fr); }
+  .products-grid { grid-template-columns: repeat(4, 1fr); }
+  .deals-grid { grid-template-columns: repeat(4, 1fr); }
+  .hero-inner { grid-template-columns: 180px 1fr; }
+  .hero-right { display: none; }
+}
+
+@media (max-width: 900px) {
+  .header-actions .hdr-btn:not(:first-child):not(:last-child) { display: none; }
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-side-cats { display: none; }
+  .carousel-slide { padding: 28px 24px; height: 280px; }
+  .slide-title { font-size: 26px; }
+  .slide-visual { display: none; }
+  .products-grid { grid-template-columns: repeat(3, 1fr); }
+  .deals-grid { grid-template-columns: repeat(3, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .supplier-card { flex: 0 0 calc((100% - 28px) / 3); }
+  .banner-strip .container { grid-template-columns: 1fr; }
+  .trust-strip .container { flex-wrap: wrap; }
+  .trust-item { min-width: 50%; }
+}
+
+@media (max-width: 640px) {
+  .top-util-bar { display: none; }
+  .header-main { gap: 10px; }
+  .logo-text { font-size: 22px; }
+  .logo-sub { display: none; }
+  .search-cat { display: none; }
+  .hdr-signup { display: none; }
+  .cat-grid { grid-template-columns: repeat(4, 1fr); }
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
+  .deals-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr; }
+  .detail-body { grid-template-columns: 1fr; }
+  .supplier-card { flex: 0 0 calc((100% - 14px) / 2); }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse { 0%,100% { opacity:1 } 50% { opacity:.6 } }
+.animate-in { animation: fadeInUp 0.55s ease both; }
+</style>
+</head>
+<body>
+
+<!-- ═══ TOP UTILITY BAR ══════════════════════════ -->
+<div class="top-util-bar">
+  <div class="container">
+    <div class="util-left">
+      <a href="#">Sell on Alibaba</a>
+      <a href="#">Alibaba Cloud</a>
+      <a href="#">AliExpress</a>
+      <a href="#">Taobao</a>
+      <a href="#">1688.com</a>
+    </div>
+    <div class="util-right">
+      <select><option>🇺🇸 English</option><option>🇨🇳 中文</option><option>🇪🇸 Español</option></select>
+      <select><option>USD</option><option>EUR</option><option>GBP</option></select>
+      <a href="#">Help Center</a>
+      <a href="#">Sign In</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HEADER ═══════════════════════════════════ -->
+<header class="site-header">
+  <div class="container">
+    <div class="header-main">
+      <!-- Logo -->
+      <div class="logo" onclick="showToast('Welcome to Alibaba.com!')">
+        <div class="logo-text">alibaba</div>
+        <div class="logo-sub">.com</div>
+      </div>
+
+      <!-- Search -->
+      <div class="search-bar">
+        <select class="search-cat">
+          <option>All Categories</option>
+          <option>Electronics</option>
+          <option>Machinery</option>
+          <option>Apparel</option>
+          <option>Home &amp; Garden</option>
+          <option>Beauty</option>
+        </select>
+        <input class="search-input" type="text" placeholder="Search products, suppliers, and trade leads..." id="searchInput">
+        <button class="search-btn" onclick="doSearch()"><i class="ti ti-search"></i></button>
+      </div>
+
+      <!-- Actions -->
+      <div class="header-actions">
+        <button class="hdr-btn" onclick="showToast('Opening cart...')">
+          <i class="ti ti-shopping-cart"></i>
+          <span>Cart</span>
+          <span class="hdr-btn-badge">3</span>
+        </button>
+        <button class="hdr-btn" onclick="showToast('Opening messages...')">
+          <i class="ti ti-message-2"></i>
+          <span>Messages</span>
+          <span class="hdr-btn-badge">12</span>
+        </button>
+        <button class="hdr-btn" onclick="showToast('Sign in to your account')">
+          <i class="ti ti-user-circle"></i>
+          <span>Sign In</span>
+        </button>
+        <button class="hdr-signup" onclick="showToast('Create your free account!')">Join Free</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Nav -->
+  <nav class="main-nav">
+    <div class="container">
+      <button class="nav-categories-btn" onclick="showToast('Browsing all categories...')">
+        <i class="ti ti-category"></i> All Categories <i class="ti ti-chevron-down" style="font-size:13px"></i>
+      </button>
+      <a class="nav-item active" href="#"><i class="ti ti-home"></i> Home</a>
+      <a class="nav-item" href="#products-section"><i class="ti ti-box"></i> Products</a>
+      <a class="nav-item" href="#suppliers-section"><i class="ti ti-building-factory-2"></i> Suppliers</a>
+      <a class="nav-item" href="#" onclick="showToast('Post your RFQ!')"><i class="ti ti-file-text"></i> RFQ</a>
+      <a class="nav-item nav-deal" href="#deals-section">Deals</a>
+      <a class="nav-item" href="#" onclick="showToast('Explore trade services')"><i class="ti ti-briefcase"></i> Services</a>
+      <span class="nav-spacer"></span>
+      <a class="nav-item" href="#" onclick="showToast('Trade Assurance protection')" style="color:var(--orange);font-weight:600"><i class="ti ti-shield-check"></i> Trade Assurance</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ═══ HERO ══════════════════════════════════════ -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- Left category sidebar -->
+      <div class="hero-side-cats">
+        <div class="side-cat-item" onclick="showToast('Browsing Electronics')"><i class="ti ti-device-laptop"></i> Electronics</div>
+        <div class="side-cat-item" onclick="showToast('Browsing Machinery')"><i class="ti ti-engine"></i> Machinery</div>
+        <div class="side-cat-item" onclick="showToast('Browsing Apparel')"><i class="ti ti-shirt"></i> Apparel &amp; Clothing</div>
+        <div class="side-cat-item" onclick="showToast('Browsing Home & Garden')"><i class="ti ti-home"></i> Home &amp; Garden</div>
+        <div class="side-cat-item" onclick="showToast('Browsing Beauty')"><i class="ti ti-sparkles"></i> Beauty &amp; Health</div>
+        <div class="side-cat-item" onclick="showToast('Browsing Sports')"><i class="ti ti-ball-football"></i> Sports &amp; Outdoors</div>
+        <div class="side-cat-item" onclick="showToast('Browsing Auto Parts')"><i class="ti ti-car"></i> Auto Parts</div>
+        <div class="side-cat-item" onclick="showToast('Browsing Food')"><i class="ti ti-apple"></i> Food &amp; Beverage</div>
+        <div class="side-cat-item" onclick="showToast('Browsing Construction')"><i class="ti ti-building"></i> Construction</div>
+        <div class="side-cat-item" onclick="showToast('Browsing Chemicals')"><i class="ti ti-flask"></i> Chemicals</div>
+        <div class="side-cat-item" style="color:var(--orange);font-weight:600;background:var(--orange-pale)" onclick="showToast('View all categories')"><i class="ti ti-dots"></i> All Categories →</div>
+      </div>
+
+      <!-- Carousel -->
+      <div class="carousel-wrap">
+        <div class="carousel-track" id="carouselTrack">
+
+          <div class="carousel-slide slide-1">
+            <div class="slide-bg-shapes">
+              <div class="slide-shape" style="width:300px;height:300px;background:#fff;top:-100px;right:200px"></div>
+              <div class="slide-shape" style="width:200px;height:200px;background:#4fc3f7;bottom:-80px;right:100px"></div>
+            </div>
+            <div class="slide-content">
+              <div class="slide-eyebrow">Global B2B Marketplace</div>
+              <div class="slide-title">Source Everything.<br>Sell Everywhere.</div>
+              <div class="slide-desc">Connect with 200M+ buyers and suppliers in 190+ countries</div>
+              <div class="slide-actions">
+                <button class="btn btn-primary btn-lg" onclick="showToast('Browsing products!')">Shop Now</button>
+                <button class="btn btn-white btn-lg" onclick="showToast('Post your product!')">Post Your Product</button>
+              </div>
+            </div>
+            <div class="slide-visual"><i class="ti ti-world" style="color:rgba(255,255,255,.4)"></i></div>
+          </div>
+
+          <div class="carousel-slide slide-2">
+            <div class="slide-bg-shapes">
+              <div class="slide-shape" style="width:280px;height:280px;background:#a5d6a7;top:-60px;right:180px"></div>
+            </div>
+            <div class="slide-content">
+              <div class="slide-eyebrow">Electronics Season</div>
+              <div class="slide-title">Next-Gen<br>Electronics Deals</div>
+              <div class="slide-desc">Up to 40% off on bulk electronics — verified manufacturers only</div>
+              <div class="slide-actions">
+                <button class="btn btn-primary btn-lg" onclick="showToast('Exploring electronics!')">Explore Deals</button>
+                <button class="btn btn-white btn-lg" onclick="showToast('Finding suppliers!')">Find Suppliers</button>
+              </div>
+            </div>
+            <div class="slide-visual"><i class="ti ti-device-laptop" style="color:rgba(255,255,255,.35)"></i></div>
+          </div>
+
+          <div class="carousel-slide slide-3">
+            <div class="slide-bg-shapes">
+              <div class="slide-shape" style="width:320px;height:320px;background:#ef9a9a;top:-120px;right:160px"></div>
+            </div>
+            <div class="slide-content">
+              <div class="slide-eyebrow">Trade Assurance</div>
+              <div class="slide-title">Buy with<br>Confidence</div>
+              <div class="slide-desc">100% secure payments, refund guarantee, and quality inspection</div>
+              <div class="slide-actions">
+                <button class="btn btn-primary btn-lg" onclick="showToast('Learning about Trade Assurance!')">Learn More</button>
+                <button class="btn btn-white btn-lg" onclick="showToast('Starting an order!')">Start Order</button>
+              </div>
+            </div>
+            <div class="slide-visual"><i class="ti ti-shield-check" style="color:rgba(255,255,255,.35)"></i></div>
+          </div>
+
+          <div class="carousel-slide slide-4">
+            <div class="slide-bg-shapes">
+              <div class="slide-shape" style="width:260px;height:260px;background:#ce93d8;top:-80px;right:200px"></div>
+            </div>
+            <div class="slide-content">
+              <div class="slide-eyebrow">New Arrivals</div>
+              <div class="slide-title">Discover<br>Trending Products</div>
+              <div class="slide-desc">Daily updated product listings from verified global manufacturers</div>
+              <div class="slide-actions">
+                <button class="btn btn-primary btn-lg" onclick="showToast('Exploring trending products!')">Discover Now</button>
+              </div>
+            </div>
+            <div class="slide-visual"><i class="ti ti-trending-up" style="color:rgba(255,255,255,.35)"></i></div>
+          </div>
+
+          <div class="carousel-slide slide-5">
+            <div class="slide-bg-shapes">
+              <div class="slide-shape" style="width:350px;height:350px;background:#4fc3f7;top:-150px;right:120px"></div>
+            </div>
+            <div class="slide-content">
+              <div class="slide-eyebrow">Supplier Program</div>
+              <div class="slide-title">Grow Your<br>Business Globally</div>
+              <div class="slide-desc">Reach millions of buyers worldwide — list your first product free</div>
+              <div class="slide-actions">
+                <button class="btn btn-primary btn-lg" onclick="showToast('Joining as a supplier!')">Become a Supplier</button>
+                <button class="btn btn-white btn-lg" onclick="showToast('Viewing success stories!')">Success Stories</button>
+              </div>
+            </div>
+            <div class="slide-visual"><i class="ti ti-rocket" style="color:rgba(255,255,255,.35)"></i></div>
+          </div>
+
+        </div>
+
+        <button class="carousel-btn prev" onclick="moveCarousel(-1)"><i class="ti ti-chevron-left"></i></button>
+        <button class="carousel-btn next" onclick="moveCarousel(1)"><i class="ti ti-chevron-right"></i></button>
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+
+      <!-- Right panel -->
+      <div class="hero-right">
+        <div class="hero-mini-card" onclick="showToast('Signing in...')">
+          <div class="hero-mini-icon" style="background:var(--orange-pale)"><i class="ti ti-user-circle" style="color:var(--orange)"></i></div>
+          <div>
+            <div class="hero-mini-title">Sign In / Join</div>
+            <div class="hero-mini-desc">Access your account</div>
+          </div>
+          <i class="ti ti-chevron-right" style="color:var(--gray-400);margin-left:auto"></i>
+        </div>
+        <div class="hero-mini-card" onclick="showToast('Posting your RFQ...')">
+          <div class="hero-mini-icon" style="background:#e3f2fd"><i class="ti ti-file-plus" style="color:var(--blue)"></i></div>
+          <div>
+            <div class="hero-mini-title">Post RFQ Free</div>
+            <div class="hero-mini-desc">Get quotes in 24h</div>
+          </div>
+          <i class="ti ti-chevron-right" style="color:var(--gray-400);margin-left:auto"></i>
+        </div>
+        <div class="hero-mini-card" onclick="showToast('Opening Trade Assurance...')">
+          <div class="hero-mini-icon" style="background:#e8f5e9"><i class="ti ti-shield-check" style="color:var(--green)"></i></div>
+          <div>
+            <div class="hero-mini-title">Trade Assurance</div>
+            <div class="hero-mini-desc">Protected orders</div>
+          </div>
+          <i class="ti ti-chevron-right" style="color:var(--gray-400);margin-left:auto"></i>
+        </div>
+        <div class="promo-strip" onclick="showToast('Viewing app promotions...')">
+          <div class="promo-strip-title">📱 Download App</div>
+          <div class="promo-strip-sub">Get exclusive mobile deals</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CATEGORIES ════════════════════════════════ -->
+<section class="categories-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Browse by Category</h2>
+      <a class="view-all" href="#" onclick="showToast('Viewing all categories!')">View All <i class="ti ti-arrow-right"></i></a>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card" onclick="showToast('Browsing Electronics')">
+        <div class="cat-icon" style="background:#e3f2fd"><i class="ti ti-device-laptop" style="color:#1565c0"></i></div>
+        <div class="cat-name">Electronics</div>
+        <div class="cat-count">2.4M products</div>
+      </div>
+      <div class="cat-card" onclick="showToast('Browsing Machinery')">
+        <div class="cat-icon" style="background:#fce4ec"><i class="ti ti-engine" style="color:#c62828"></i></div>
+        <div class="cat-name">Machinery</div>
+        <div class="cat-count">1.8M products</div>
+      </div>
+      <div class="cat-card" onclick="showToast('Browsing Apparel')">
+        <div class="cat-icon" style="background:#f3e5f5"><i class="ti ti-shirt" style="color:#6a1b9a"></i></div>
+        <div class="cat-name">Apparel</div>
+        <div class="cat-count">3.1M products</div>
+      </div>
+      <div class="cat-card" onclick="showToast('Browsing Home & Garden')">
+        <div class="cat-icon" style="background:#e8f5e9"><i class="ti ti-sofa" style="color:#2e7d32"></i></div>
+        <div class="cat-name">Home &amp; Garden</div>
+        <div class="cat-count">1.5M products</div>
+      </div>
+      <div class="cat-card" onclick="showToast('Browsing Beauty & Health')">
+        <div class="cat-icon" style="background:#fff8e1"><i class="ti ti-sparkles" style="color:#f9a825"></i></div>
+        <div class="cat-name">Beauty &amp; Health</div>
+        <div class="cat-count">980K products</div>
+      </div>
+      <div class="cat-card" onclick="showToast('Browsing Auto Parts')">
+        <div class="cat-icon" style="background:#efebe9"><i class="ti ti-car" style="color:#4e342e"></i></div>
+        <div class="cat-name">Auto Parts</div>
+        <div class="cat-count">760K products</div>
+      </div>
+      <div class="cat-card" onclick="showToast('Browsing Sports')">
+        <div class="cat-icon" style="background:#e0f7fa"><i class="ti ti-ball-football" style="color:#00838f"></i></div>
+        <div class="cat-name">Sports</div>
+        <div class="cat-count">640K products</div>
+      </div>
+      <div class="cat-card" onclick="showToast('Browsing Construction')">
+        <div class="cat-icon" style="background:#fff3e0"><i class="ti ti-building" style="color:#e65100"></i></div>
+        <div class="cat-name">Construction</div>
+        <div class="cat-count">520K products</div>
+      </div>
+      <div class="cat-card" onclick="showToast('Browsing Food & Beverage')">
+        <div class="cat-icon" style="background:#e8f5e9"><i class="ti ti-apple" style="color:#388e3c"></i></div>
+        <div class="cat-name">Food &amp; Beverage</div>
+        <div class="cat-count">410K products</div>
+      </div>
+      <div class="cat-card" onclick="showToast('Browsing Chemicals')">
+        <div class="cat-icon" style="background:#e3f2fd"><i class="ti ti-flask" style="color:#0277bd"></i></div>
+        <div class="cat-name">Chemicals</div>
+        <div class="cat-count">290K products</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BANNER STRIP ══════════════════════════════ -->
+<section class="banner-strip">
+  <div class="container">
+    <div class="banner-card" style="background:linear-gradient(135deg,#1565c0,#0d47a1)" onclick="showToast('Exploring verified suppliers!')">
+      <div class="banner-card-title">Verified Suppliers</div>
+      <div class="banner-card-sub">Gold & Trade Assurance certified</div>
+      <button class="btn btn-white btn-sm" style="width:fit-content">Explore Now</button>
+      <i class="ti ti-shield-check banner-card-icon"></i>
+    </div>
+    <div class="banner-card" style="background:linear-gradient(135deg,#e65100,#bf360c)" onclick="showToast('Posting your RFQ!')">
+      <div class="banner-card-title">Post Your RFQ Free</div>
+      <div class="banner-card-sub">Get quotes from 500+ suppliers in 24 hours</div>
+      <button class="btn btn-white btn-sm" style="width:fit-content">Post RFQ</button>
+      <i class="ti ti-file-plus banner-card-icon"></i>
+    </div>
+    <div class="banner-card" style="background:linear-gradient(135deg,#1b5e20,#2e7d32)" onclick="showToast('Discovering bulk deals!')">
+      <div class="banner-card-title">Bulk Order Savings</div>
+      <div class="banner-card-sub">Save up to 45% with wholesale pricing</div>
+      <button class="btn btn-white btn-sm" style="width:fit-content">View Deals</button>
+      <i class="ti ti-tag banner-card-icon"></i>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURED PRODUCTS ═════════════════════════ -->
+<section class="products-section" id="products-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Featured Products</h2>
+      <a class="view-all" href="#">View All Products <i class="ti ti-arrow-right"></i></a>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="setFilter(this)">All</button>
+      <button class="filter-btn" onclick="setFilter(this)">Electronics</button>
+      <button class="filter-btn" onclick="setFilter(this)">Machinery</button>
+      <button class="filter-btn" onclick="setFilter(this)">Apparel</button>
+      <button class="filter-btn" onclick="setFilter(this)">Home &amp; Garden</button>
+      <button class="filter-btn" onclick="setFilter(this)">Beauty</button>
+      <span class="filter-spacer"></span>
+      <span class="sort-label">Sort by:</span>
+      <select class="filter-select" onchange="showToast('Sorting products...')">
+        <option>Best Match</option>
+        <option>Price: Low to High</option>
+        <option>Price: High to Low</option>
+        <option>Most Orders</option>
+        <option>Newest</option>
+      </select>
+      <select class="filter-select" onchange="showToast('Filtering by location...')">
+        <option>All Locations</option>
+        <option>China</option>
+        <option>India</option>
+        <option>Turkey</option>
+        <option>Vietnam</option>
+      </select>
+    </div>
+
+    <div class="products-grid" id="productsGrid"></div>
+  </div>
+</section>
+
+<!-- ═══ DEALS SECTION ═════════════════════════════ -->
+<section class="deals-section" id="deals-section">
+  <div class="container">
+    <div class="deals-header">
+      <div class="deals-title-wrap">
+        <span class="deals-icon">🔥</span>
+        <div>
+          <div class="deals-label">Flash Deals</div>
+          <div class="deals-sub">Limited time offers — grab before they're gone!</div>
+        </div>
+      </div>
+      <div class="countdown">
+        <div class="countdown-unit"><div class="countdown-num" id="cntH">08</div><div class="countdown-lbl">HOURS</div></div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-unit"><div class="countdown-num" id="cntM">43</div><div class="countdown-lbl">MINS</div></div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-unit"><div class="countdown-num" id="cntS">22</div><div class="countdown-lbl">SECS</div></div>
+      </div>
+    </div>
+    <div class="deals-grid" id="dealsGrid"></div>
+  </div>
+</section>
+
+<!-- ═══ SUPPLIERS ═════════════════════════════════ -->
+<section class="suppliers-section" id="suppliers-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Top-Rated Suppliers</h2>
+      <a class="view-all" href="#" onclick="showToast('Viewing all suppliers!')">View All Suppliers <i class="ti ti-arrow-right"></i></a>
+    </div>
+    <div class="suppliers-carousel-wrap">
+      <div class="suppliers-track" id="suppliersTrack"></div>
+      <div class="carousel-nav">
+        <button class="carousel-nav-btn" onclick="showToast('Previous suppliers')"><i class="ti ti-chevron-left"></i></button>
+        <button class="carousel-nav-btn" onclick="showToast('Next suppliers')"><i class="ti ti-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TRUST STRIP ═══════════════════════════════ -->
+<div class="trust-strip">
+  <div class="container">
+    <div class="trust-item" onclick="showToast('Trade Assurance — Safe orders!')">
+      <i class="ti ti-shield-check trust-icon"></i>
+      <div><div class="trust-title">Trade Assurance</div><div class="trust-desc">100% refund if quality doesn't match</div></div>
+    </div>
+    <div class="trust-item" onclick="showToast('Verified suppliers!')">
+      <i class="ti ti-badge-check trust-icon"></i>
+      <div><div class="trust-title">Verified Suppliers</div><div class="trust-desc">All suppliers are thoroughly vetted</div></div>
+    </div>
+    <div class="trust-item" onclick="showToast('Secure payments!')">
+      <i class="ti ti-credit-card trust-icon"></i>
+      <div><div class="trust-title">Secure Payments</div><div class="trust-desc">Protected by Alibaba payment system</div></div>
+    </div>
+    <div class="trust-item" onclick="showToast('24/7 support!')">
+      <i class="ti ti-headset trust-icon"></i>
+      <div><div class="trust-title">24/7 Support</div><div class="trust-desc">Expert help whenever you need it</div></div>
+    </div>
+    <div class="trust-item" onclick="showToast('Global shipping!')">
+      <i class="ti ti-truck-delivery trust-icon"></i>
+      <div><div class="trust-title">Global Shipping</div><div class="trust-desc">Delivery to 220+ countries</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">alibaba.com</div>
+          <div class="footer-tagline">The world's largest B2B marketplace, connecting millions of buyers and suppliers globally since 1999.</div>
+          <div class="footer-social">
+            <button class="social-btn" onclick="showToast('Opening Facebook!')"><i class="ti ti-brand-facebook"></i></button>
+            <button class="social-btn" onclick="showToast('Opening Twitter!')"><i class="ti ti-brand-twitter"></i></button>
+            <button class="social-btn" onclick="showToast('Opening LinkedIn!')"><i class="ti ti-brand-linkedin"></i></button>
+            <button class="social-btn" onclick="showToast('Opening YouTube!')"><i class="ti ti-brand-youtube"></i></button>
+            <button class="social-btn" onclick="showToast('Opening Instagram!')"><i class="ti ti-brand-instagram"></i></button>
+          </div>
+          <div class="app-badges">
+            <div class="app-badge" onclick="showToast('Downloading iOS app!')">
+              <i class="ti ti-brand-apple"></i>
+              <div class="app-badge-text">
+                <span class="app-badge-pre">Download on the</span>
+                <span class="app-badge-name">App Store</span>
+              </div>
+            </div>
+            <div class="app-badge" onclick="showToast('Downloading Android app!')">
+              <i class="ti ti-brand-google-play"></i>
+              <div class="app-badge-text">
+                <span class="app-badge-pre">Get it on</span>
+                <span class="app-badge-name">Google Play</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Company</div>
+          <div class="footer-links">
+            <a href="#">About Alibaba</a>
+            <a href="#">Careers</a>
+            <a href="#">Press Room</a>
+            <a href="#">Investor Relations</a>
+            <a href="#">Corporate Responsibility</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Trade</div>
+          <div class="footer-links">
+            <a href="#">Sell on Alibaba</a>
+            <a href="#">Partner With Us</a>
+            <a href="#">Trade Assurance</a>
+            <a href="#">Logistics Service</a>
+            <a href="#">Inspection Service</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Support</div>
+          <div class="footer-links">
+            <a href="#">Help Center</a>
+            <a href="#">Buyer Central</a>
+            <a href="#">Supplier Central</a>
+            <a href="#">Trust &amp; Safety</a>
+            <a href="#">Report Abuse</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Legal</div>
+          <div class="footer-links">
+            <a href="#">Terms &amp; Conditions</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Cookie Policy</a>
+            <a href="#">Anti-Counterfeiting</a>
+            <a href="#">Accessibility</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 Alibaba.com. All rights reserved.</span>
+      <div class="footer-bottom-links">
+        <a href="#">Terms of Use</a>
+        <a href="#">Privacy</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ PRODUCT DETAIL OVERLAY ════════════════════ -->
+<div class="detail-overlay" id="detailOverlay" onclick="closeDetailOverlay(event)">
+  <div class="detail-modal">
+    <div class="detail-modal-header">
+      <div>
+        <h3 id="detailModalTitle" style="font-size:16px;font-weight:700"></h3>
+        <div style="display:flex;gap:6px;margin-top:4px" id="detailModalBadges"></div>
+      </div>
+      <button class="detail-close" onclick="closeDetail()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="detail-body">
+      <div class="detail-gallery">
+        <div class="detail-main-img" id="detailMainImg"></div>
+        <div class="detail-thumbs" id="detailThumbs"></div>
+      </div>
+      <div class="detail-info" id="detailInfo"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TOAST ══════════════════════════════════════ -->
+<div id="toast" style="position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 22px;border-radius:30px;font-size:13px;font-weight:500;z-index:99999;opacity:0;transition:all .3s cubic-bezier(.4,0,.2,1);pointer-events:none;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.3)"></div>
+
+<!-- ═══ SCROLL TO TOP ══════════════════════════════ -->
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="ti ti-arrow-up"></i>
+</button>
+
+<script>
+// ═══════════════════════════════════════════════════
+//  DATA
+// ═══════════════════════════════════════════════════
+const PRODUCTS = [
+  { id:1, title:'OEM TWS Wireless Earbuds Bluetooth 5.3 ANC Noise Cancelling 30H Playtime', price:'$8.50', priceRange:'$8.50–$15.00', moq:'100 pcs', supplier:'Zhongshan Electronics', verified:true, tradeAssurance:true, icon:'ti ti-headphones', iconColor:'#1565c0', iconBg:'#e3f2fd', rating:4.8, reviews:2340 },
+  { id:2, title:'Industrial CNC Milling Machine 3-Axis High Precision Metal Cutting Equipment', price:'$4,500', priceRange:'$4,500–$12,000', moq:'1 set', supplier:'Shenyang Machinery Co.', verified:true, tradeAssurance:true, icon:'ti ti-tool', iconColor:'#b71c1c', iconBg:'#fce4ec', rating:4.7, reviews:189 },
+  { id:3, title:'Women\'s Oversized Puffer Jacket Winter Coat OEM Custom Logo Outerwear 2024', price:'$12.00', priceRange:'$12.00–$28.00', moq:'50 pcs', supplier:'Guangzhou Fashion Ltd', verified:true, tradeAssurance:false, icon:'ti ti-shirt', iconColor:'#6a1b9a', iconBg:'#f3e5f5', rating:4.5, reviews:876 },
+  { id:4, title:'Smart LED Strip Lights RGB WiFi App Control 5M Waterproof Home Decoration', price:'$3.20', priceRange:'$3.20–$8.00', moq:'200 pcs', supplier:'Shenzhen LED Factory', verified:true, tradeAssurance:true, icon:'ti ti-bulb', iconColor:'#f9a825', iconBg:'#fff8e1', rating:4.9, reviews:5621 },
+  { id:5, title:'Stainless Steel Kitchen Utensil Set 24pcs Cooking Tools Gift Box Premium Quality', price:'$18.50', priceRange:'$18.50–$32.00', moq:'20 sets', supplier:'Yiwu Housewares Corp', verified:false, tradeAssurance:true, icon:'ti ti-tools-kitchen-2', iconColor:'#2e7d32', iconBg:'#e8f5e9', rating:4.6, reviews:1243 },
+  { id:6, title:'Portable Solar Power Bank 20000mAh Fast Charging Dual USB Outdoor Camping', price:'$9.80', priceRange:'$9.80–$18.00', moq:'50 pcs', supplier:'Dongguan Power Tech', verified:true, tradeAssurance:true, icon:'ti ti-solar-panel', iconColor:'#e65100', iconBg:'#fff3e0', rating:4.7, reviews:3450 },
+  { id:7, title:'Custom Logo Luxury Skincare Gift Set Moisturizer Serum Face Cream OEM Cosmetics', price:'$6.50', priceRange:'$6.50–$22.00', moq:'100 sets', supplier:'Guangzhou Beauty Co.', verified:true, tradeAssurance:false, icon:'ti ti-heart', iconColor:'#880e4f', iconBg:'#fce4ec', rating:4.4, reviews:654 },
+  { id:8, title:'Heavy Duty Forklift 3 Ton Electric Warehouse Material Handling Equipment', price:'$8,500', priceRange:'$8,500–$24,000', moq:'1 unit', supplier:'Hangcha Equipment', verified:true, tradeAssurance:true, icon:'ti ti-forklift', iconColor:'#4e342e', iconBg:'#efebe9', rating:4.8, reviews:92 },
+  { id:9, title:'Running Shoes Men Breathable Lightweight Sports Sneakers OEM Custom Brand', price:'$14.00', priceRange:'$14.00–$28.00', moq:'100 pairs', supplier:'Jinjiang Footwear Ltd', verified:true, tradeAssurance:true, icon:'ti ti-shoe', iconColor:'#00838f', iconBg:'#e0f7fa', rating:4.6, reviews:2876 },
+  { id:10, title:'Organic Matcha Green Tea Powder Ceremonial Grade USDA Certified 100g Tin', price:'$4.80', priceRange:'$4.80–$12.00', moq:'500 tins', supplier:'Hangzhou Tea Garden', verified:true, tradeAssurance:false, icon:'ti ti-leaf', iconColor:'#388e3c', iconBg:'#e8f5e9', rating:4.9, reviews:1876 },
+];
+
+const DEALS = [
+  { title:'Bluetooth Speaker Portable Waterproof Outdoor Wireless Mini', oldPrice:'$24.00', newPrice:'$14.50', discount:'-40%', sold:73, icon:'ti ti-speakerphone', iconColor:'#1565c0', iconBg:'#e3f2fd' },
+  { title:'4K Security Camera System 8CH DVR Outdoor CCTV Night Vision', oldPrice:'$120', newPrice:'$72', discount:'-40%', sold:58, icon:'ti ti-camera', iconColor:'#c62828', iconBg:'#fce4ec' },
+  { title:'Electric Toothbrush Sonic Whitening Rechargeable 3 Speed', oldPrice:'$18', newPrice:'$10.80', discount:'-40%', sold:85, icon:'ti ti-device-tablet', iconColor:'#0277bd', iconBg:'#e3f2fd' },
+  { title:'Yoga Mat Anti-Slip 6mm Thick Exercise Fitness with Bag', oldPrice:'$22', newPrice:'$13.20', discount:'-40%', sold:64, icon:'ti ti-ball-football', iconColor:'#2e7d32', iconBg:'#e8f5e9' },
+  { title:'Stainless Steel Vacuum Flask 500ml Insulated Thermos Coffee Travel', oldPrice:'$12', newPrice:'$7.20', discount:'-40%', sold:91, icon:'ti ti-bottle', iconColor:'#e65100', iconBg:'#fff3e0' },
+  { title:'Adjustable Laptop Stand Aluminum Ergonomic Height Portable Desk', oldPrice:'$30', newPrice:'$18', discount:'-40%', sold:47, icon:'ti ti-device-laptop', iconColor:'#6a1b9a', iconBg:'#f3e5f5' },
+];
+
+const SUPPLIERS = [
+  { name:'Shenzhen TechPro', logo:'STP', location:'Shenzhen, CN', goldYears:8, products:4200, rating:4.9, specialty:'Electronics', verified:true },
+  { name:'Guangzhou Fashion Ltd', logo:'GFL', location:'Guangzhou, CN', goldYears:6, products:8700, rating:4.8, specialty:'Apparel', verified:true },
+  { name:'Shandong Steel Corp', logo:'SSC', location:'Shandong, CN', goldYears:10, products:1200, rating:4.7, specialty:'Metals', verified:true },
+  { name:'Yiwu Commodity Co.', logo:'YCC', location:'Yiwu, CN', goldYears:5, products:15600, rating:4.6, specialty:'General', verified:true },
+  { name:'Mumbai Textiles Ltd', logo:'MTL', location:'Mumbai, IN', goldYears:4, products:3400, rating:4.7, specialty:'Textiles', verified:true },
+  { name:'Istanbul Manufacturing', logo:'IM', location:'Istanbul, TR', goldYears:3, products:2100, rating:4.5, specialty:'Furniture', verified:true },
+];
+
+// ═══════════════════════════════════════════════════
+//  RENDER PRODUCTS
+// ═══════════════════════════════════════════════════
+function renderProducts() {
+  const grid = document.getElementById('productsGrid');
+  grid.innerHTML = PRODUCTS.map(p => `
+    <div class="product-card animate-in" onclick="openDetail(${p.id})">
+      <div class="product-img-wrap">
+        <div class="product-img product-img-placeholder">
+          <i class="${p.icon}" style="color:${p.iconColor};background:${p.iconBg};width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:64px"></i>
+        </div>
+        <div class="product-badges">
+          ${p.tradeAssurance ? '<span class="badge badge-orange" style="font-size:10px"><i class="ti ti-shield-check"></i> Trade Assurance</span>' : ''}
+          ${p.verified ? '<span class="badge badge-gold" style="font-size:10px"><i class="ti ti-star-filled"></i> Verified</span>' : ''}
+        </div>
+        <button class="product-favorite" onclick="event.stopPropagation();this.style.color='#e53935';showToast('Added to favourites!')"><i class="ti ti-heart"></i></button>
+        <button class="product-quick-view" onclick="event.stopPropagation();openDetail(${p.id})">Quick View</button>
+      </div>
+      <div class="product-info">
+        <div class="product-title">${p.title}</div>
+        <div class="product-price">${p.price} <span class="product-price-range">/ ${p.priceRange}</span></div>
+        <div class="product-moq">Min. Order: ${p.moq}</div>
+        <div class="product-supplier"><i class="ti ti-building-factory-2"></i> ${p.supplier}</div>
+        <div class="product-actions">
+          <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();showToast('Opening chat with ${p.supplier}!')">Chat Now</button>
+          <button class="btn btn-outline btn-sm" onclick="event.stopPropagation();showToast('Contacting ${p.supplier}!')">Contact</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════════
+//  RENDER DEALS
+// ═══════════════════════════════════════════════════
+function renderDeals() {
+  const grid = document.getElementById('dealsGrid');
+  grid.innerHTML = DEALS.map(d => `
+    <div class="deal-card" onclick="showToast('Viewing deal: ${d.title.substring(0,30)}...')">
+      <div class="deal-img-wrap">
+        <i class="${d.icon}" style="font-size:52px;color:${d.iconColor};background:${d.iconBg};width:100%;height:100%;display:flex;align-items:center;justify-content:center"></i>
+        <div class="deal-discount">${d.discount}</div>
+      </div>
+      <div class="deal-info">
+        <div class="deal-title">${d.title}</div>
+        <div class="deal-prices">
+          <span class="deal-new-price">${d.newPrice}</span>
+          <span class="deal-old-price">${d.oldPrice}</span>
+        </div>
+        <div class="deal-bar-wrap">
+          <div class="deal-bar"><div class="deal-bar-fill" style="width:${d.sold}%"></div></div>
+          <div class="deal-sold">${d.sold}% sold</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════════
+//  RENDER SUPPLIERS
+// ═══════════════════════════════════════════════════
+function renderSuppliers() {
+  const track = document.getElementById('suppliersTrack');
+  track.innerHTML = SUPPLIERS.map(s => `
+    <div class="supplier-card">
+      <div class="supplier-logo" style="background:var(--orange-pale);color:var(--orange);font-size:18px;font-weight:800">${s.logo}</div>
+      <div class="supplier-name">${s.name}</div>
+      <div class="supplier-badges">
+        ${s.verified ? '<span class="badge badge-gold"><i class="ti ti-star-filled"></i> Gold ${s.goldYears}yr</span>' : ''}
+        <span class="badge badge-green"><i class="ti ti-shield-check"></i> Verified</span>
+      </div>
+      <div class="supplier-location"><i class="ti ti-map-pin"></i> ${s.location}</div>
+      <div class="supplier-stats">
+        <div class="supplier-stat"><div class="supplier-stat-val">${s.rating}</div><div class="supplier-stat-lbl">Rating</div></div>
+        <div class="supplier-stat"><div class="supplier-stat-val">${(s.products/1000).toFixed(1)}K</div><div class="supplier-stat-lbl">Products</div></div>
+      </div>
+      <button class="btn btn-outline btn-sm" style="width:100%;justify-content:center" onclick="showToast('Viewing products from ${s.name}!')">View Products</button>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════════
+//  CAROUSEL
+// ═══════════════════════════════════════════════════
+let currentSlide = 0;
+const totalSlides = 5;
+let autoSlide;
+
+function buildDots() {
+  const dots = document.getElementById('carouselDots');
+  dots.innerHTML = Array.from({length:totalSlides}, (_,i) =>
+    `<button class="carousel-dot${i===0?' active':''}" onclick="goToSlide(${i})"></button>`
+  ).join('');
+}
+
+function goToSlide(n) {
+  currentSlide = (n + totalSlides) % totalSlides;
+  document.getElementById('carouselTrack').style.transform = `translateX(-${currentSlide * 100}%)`;
+  document.querySelectorAll('.carousel-dot').forEach((d,i) => d.classList.toggle('active', i===currentSlide));
+}
+
+function moveCarousel(dir) {
+  clearInterval(autoSlide);
+  goToSlide(currentSlide + dir);
+  startAuto();
+}
+
+function startAuto() {
+  autoSlide = setInterval(() => goToSlide(currentSlide + 1), 4500);
+}
+
+// ═══════════════════════════════════════════════════
+//  PRODUCT DETAIL
+// ═══════════════════════════════════════════════════
+function openDetail(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+
+  document.getElementById('detailModalTitle').textContent = p.title;
+  document.getElementById('detailModalBadges').innerHTML = `
+    ${p.tradeAssurance ? '<span class="badge badge-orange"><i class="ti ti-shield-check"></i> Trade Assurance</span>' : ''}
+    ${p.verified ? '<span class="badge badge-gold"><i class="ti ti-star-filled"></i> Verified Supplier</span>' : ''}
+    <span class="badge badge-blue"><i class="ti ti-award"></i> Gold Supplier</span>
+  `;
+
+  document.getElementById('detailMainImg').innerHTML = `
+    <div style="width:100%;height:100%;background:${p.iconBg};display:flex;align-items:center;justify-content:center">
+      <i class="${p.icon}" style="font-size:110px;color:${p.iconColor}"></i>
+    </div>
+  `;
+
+  document.getElementById('detailThumbs').innerHTML = [1,2,3,4].map((t,i) => `
+    <div class="detail-thumb${i===0?' active':''}" onclick="this.parentElement.querySelectorAll('.detail-thumb').forEach(x=>x.classList.remove('active'));this.classList.add('active')">
+      <i class="${p.icon}" style="color:${p.iconColor}"></i>
+    </div>
+  `).join('');
+
+  const stars = Array(5).fill(0).map((_,i) =>
+    `<span class="star">${i < Math.floor(p.rating) ? '★' : (i < p.rating ? '⭐' : '☆')}</span>`
+  ).join('');
+
+  document.getElementById('detailInfo').innerHTML = `
+    <div class="detail-title">${p.title}</div>
+    <div class="detail-rating">
+      <div class="stars">${stars}</div>
+      <span style="font-weight:700;color:var(--gray-800)">${p.rating}</span>
+      <span class="rating-count">(${p.reviews.toLocaleString()} reviews)</span>
+    </div>
+    <div class="detail-price-box">
+      <div class="detail-price">${p.priceRange}</div>
+      <div class="detail-price-note">Price per unit · USD · MOQ: ${p.moq}</div>
+    </div>
+    <div class="detail-specs">
+      <div class="spec-row"><div class="spec-key">Min. Order</div><div class="spec-val">${p.moq}</div></div>
+      <div class="spec-row"><div class="spec-key">Lead Time</div><div class="spec-val">15–25 days (customization available)</div></div>
+      <div class="spec-row"><div class="spec-key">Customization</div><div class="spec-val">OEM / ODM / Logo branding accepted</div></div>
+      <div class="spec-row"><div class="spec-key">Certification</div><div class="spec-val">CE, RoHS, FCC, ISO 9001</div></div>
+      <div class="spec-row"><div class="spec-key">Payment</div><div class="spec-val">T/T · L/C · Trade Assurance</div></div>
+      <div class="spec-row"><div class="spec-key">Shipping</div><div class="spec-val">FOB Shanghai / Guangzhou</div></div>
+    </div>
+    <div class="detail-supplier-box">
+      <div class="detail-supplier-logo">${p.supplier.split(' ').map(w=>w[0]).join('').substring(0,2)}</div>
+      <div style="flex:1">
+        <div class="detail-supplier-name">${p.supplier}</div>
+        <div style="display:flex;gap:5px;margin-top:4px;flex-wrap:wrap">
+          ${p.verified?'<span class="badge badge-gold" style="font-size:10px"><i class="ti ti-star-filled"></i> Gold Supplier</span>':''}
+          ${p.tradeAssurance?'<span class="badge badge-green" style="font-size:10px"><i class="ti ti-shield-check"></i> Trade Assurance</span>':''}
+        </div>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="showToast('Viewing supplier profile!')"><i class="ti ti-arrow-right"></i></button>
+    </div>
+    <div class="detail-ctas">
+      <button class="btn btn-primary btn-lg" onclick="showToast('Starting order...')"><i class="ti ti-shopping-cart"></i> Start Order</button>
+      <button class="btn btn-outline" onclick="showToast('Opening chat...')"><i class="ti ti-message-2"></i> Chat Now</button>
+      <button class="btn btn-ghost" onclick="showToast('Contacting supplier...')"><i class="ti ti-mail"></i> Contact Supplier</button>
+    </div>
+  `;
+
+  document.getElementById('detailOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetail() {
+  document.getElementById('detailOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeDetailOverlay(e) {
+  if (e.target === document.getElementById('detailOverlay')) closeDetail();
+}
+
+// ═══════════════════════════════════════════════════
+//  COUNTDOWN
+// ═══════════════════════════════════════════════════
+let secs = 8*3600 + 43*60 + 22;
+function updateCountdown() {
+  if (secs <= 0) { secs = 86400; return; }
+  secs--;
+  const h = Math.floor(secs/3600);
+  const m = Math.floor((secs%3600)/60);
+  const s = secs%60;
+  document.getElementById('cntH').textContent = String(h).padStart(2,'0');
+  document.getElementById('cntM').textContent = String(m).padStart(2,'0');
+  document.getElementById('cntS').textContent = String(s).padStart(2,'0');
+}
+
+// ═══════════════════════════════════════════════════
+//  TOAST
+// ═══════════════════════════════════════════════════
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.opacity = '1';
+  t.style.transform = 'translateX(-50%) translateY(0)';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    t.style.opacity = '0';
+    t.style.transform = 'translateX(-50%) translateY(10px)';
+  }, 2600);
+}
+
+// ═══════════════════════════════════════════════════
+//  MISC HELPERS
+// ═══════════════════════════════════════════════════
+function setFilter(btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  showToast(`Filtering: ${btn.textContent}`);
+}
+
+function doSearch() {
+  const q = document.getElementById('searchInput').value.trim();
+  showToast(q ? `Searching for "${q}"...` : 'Please enter a search term');
+}
+
+document.getElementById('searchInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doSearch();
+});
+
+// Scroll to top visibility
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+});
+
+// Keyboard close
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeDetail();
+});
+
+// ═══════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════
+renderProducts();
+renderDeals();
+renderSuppliers();
+buildDots();
+startAuto();
+setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>
