@@ -4,7 +4,6 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <title>ShopPafupi Marketplace</title>
-<meta name="description" content="Malawi's premier marketplace for buying and selling.">
 
 <!-- ══ PWA META TAGS ══ -->
 <meta name="theme-color" content="#0d2c6e">
@@ -12,8 +11,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="ShopPafupi">
 <link rel="apple-touch-icon" href="/bg.png">
-<!-- Inline manifest for immediate PWA recognition -->
-<link rel="manifest" href='data:application/manifest+json,{"name":"ShopPafupi Marketplace","short_name":"ShopPafupi","start_url":"/","display":"standalone","background_color":"#0d2c6e","theme_color":"#0d2c6e","description":"Malawi&#39;s premier marketplace for buying and selling.","icons":[{"src":"/bg.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},{"src":"/bg.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}]}'>
+<!-- Link to the external manifest.json file -->
+<link rel="manifest" href="/manifest.json">
 
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet"/>
 <style>
@@ -322,7 +321,7 @@ main{padding:0 15px 110px;max-width:480px;margin:0 auto;}
   </nav>
 
   <div class="drawer-footer">
-    <!-- ══ INSTALL APP BUTTON (Always visible, adapts to platform) ══ -->
+    <!-- ══ INSTALL APP BUTTON ══ -->
     <div class="drawer-footer-row" id="installAppBtn" onclick="handleInstallClick()">
       <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       <span id="installBtnText">Install App</span>
@@ -463,7 +462,6 @@ window.addEventListener('beforeinstallprompt', (e) => {
 
 function handleInstallClick() {
   if (isIOS) {
-    // Show custom iOS instructions
     document.getElementById('iosModal').classList.add('open');
     return;
   }
@@ -481,9 +479,9 @@ function handleInstallClick() {
       deferredPrompt = null;
     });
   } else {
-    // Fallback alert explaining why it's not working
-    console.warn('⚠️ Install prompt not available.');
-    alert('App installation is only supported on:\n\n1. Android (Chrome / Samsung Internet)\n2. Desktop Chrome / Edge\n\n⚠️ Important: If you are opening this file directly (file://), it will NOT work. You must serve it via a local server (localhost) or HTTPS for the browser to allow installation.');
+    // Diagnostic alert to tell the user exactly what's wrong
+    console.warn('⚠️ Install prompt not available. Checking PWA criteria...');
+    alert('⚠️ The browser does not recognize this app as installable yet.\n\nCommon reasons:\n1. The "manifest.json" file is missing, has a typo, or isn\'t in the root folder.\n2. The icon file (bg.png) is missing, not a perfect square, or returning a 404 error.\n3. Chrome requires you to interact with the page first (try clicking a few things before hitting install).\n\n👉 Open Browser Console (F12) and look for red "Manifest" errors for exact details.');
   }
 }
 
