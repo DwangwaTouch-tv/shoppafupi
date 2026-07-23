@@ -1,9 +1,19 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <title>ShopPafupi Marketplace</title>
+
+<!-- ══ PWA META TAGS ══ -->
+<meta name="theme-color" content="#0d2c6e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ShopPafupi">
+<link rel="apple-touch-icon" href="bg.png">
+<!-- Inline manifest for immediate PWA recognition (replace with manifest.json in production) -->
+<link rel="manifest" href='data:application/manifest+json,{"name":"ShopPafupi Marketplace","short_name":"ShopPafupi","start_url":"/","display":"standalone","background_color":"#0d2c6e","theme_color":"#0d2c6e","icons":[{"src":"bg.png","sizes":"192x192","type":"image/png"},{"src":"bg.png","sizes":"512x512","type":"image/png"}]}'>
+
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -504,6 +514,11 @@ main{padding:0 15px 110px;max-width:480px;margin:0 auto;}
   </nav>
 
   <div class="drawer-footer">
+    <!-- ══ INSTALL APP BUTTON ══ -->
+    <div class="drawer-footer-row" id="installAppBtn" style="display:none;" onclick="installApp()">
+      <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Install App
+    </div>
+    
     <div class="drawer-footer-row" onclick="drawerNav('help')">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Help &amp; Support
     </div>
@@ -516,7 +531,6 @@ main{padding:0 15px 110px;max-width:480px;margin:0 auto;}
 <!-- ══ NAV ══ -->
 <nav>
   <a class="nav-logo" href="#">
-    <!-- Replace "YOUR_LOGO.png" with your actual logo file path -->
     <div class="logo-mark">
       <img src="bg.png" alt="ShopPafupi" style="width:65px;height:65px;object-fit:contain;display:block;"/>
     </div>
@@ -527,7 +541,6 @@ main{padding:0 15px 110px;max-width:480px;margin:0 auto;}
   </a>
 
   <div class="nav-right">
-    
     <button class="nav-icon-btn" title="People">
       <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
     </button>
@@ -668,6 +681,49 @@ function drawerNav(target) {
 }
 function handleLogin()  { closeDrawer(); }
 function handleSignup() { closeDrawer(); }
+
+/* ── PWA INSTALL PROMPT ── */
+let deferredPrompt;
+const installAppBtn = document.getElementById('installAppBtn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent the mini-infobar from appearing on mobile
+  e.preventDefault();
+  // Stash the event so it can be triggered later
+  deferredPrompt = e;
+  // Show the install button in the drawer
+  if (installAppBtn) {
+    installAppBtn.style.display = 'flex';
+  }
+});
+
+window.addEventListener('appinstalled', () => {
+  // Hide the install button
+  if (installAppBtn) {
+    installAppBtn.style.display = 'none';
+  }
+  deferredPrompt = null;
+  console.log('ShopPafupi was installed');
+});
+
+function installApp() {
+  if (deferredPrompt) {
+    // Show the install prompt
+    deferredPrompt.prompt();
+    // Wait for the user to respond to the prompt
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      } else {
+        console.log('User dismissed the install prompt');
+      }
+      deferredPrompt = null;
+      if (installAppBtn) {
+        installAppBtn.style.display = 'none';
+      }
+    });
+  }
+}
 
 /* ── API SERVICE ── */
 const API = {
