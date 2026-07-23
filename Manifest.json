@@ -1,0 +1,23 @@
+{
+  "name": "ShopPafupi Marketplace",
+  "short_name": "ShopPafupi",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d2c6e",
+  "theme_color": "#0d2c6e",
+  "description": "Malawi's premier marketplace for buying and selling.",
+  "icons": [
+    {
+      "src": "/bg.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/bg.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
